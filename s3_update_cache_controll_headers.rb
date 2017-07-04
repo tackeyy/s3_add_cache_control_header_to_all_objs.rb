@@ -1,13 +1,18 @@
+# frozen_string_literal: true
+
 require 'aws-sdk'
 require 'securerandom'
 
-REGION_NAME = 'us-east-1'.freeze           # your region name
-BUCKET_NAME = 'my_bucket'.freeze           # your bucket name
-BUCKET_PREFIX = 'my_bucket_prefix'.freeze  # your bucket name
-CREDENTIALS = 'my_credentials'.freeze      # your credentials
+REGION_NAME = 'us-east-1'           # your region name
+BUCKET_NAME = 'bucket_name'         # your bucket name
+BUCKET_PREFIX = 'bucket_prefix'     # your bucket name
 
-CACHE_CONTROL = 'max-age=604800'.freeze    # 86400 = 7days
-CONTENT_TYPE = 'image/jpeg'.freeze
+ACCESS_KEY = 'access_key'
+SECRET_KEY = 'secret_key'
+CREDENTIALS = Aws::Credentials.new(ACCESS_KEY, SECRET_KEY)
+
+CACHE_CONTROL = 'max-age=604800'    # 86400 = 7days
+CONTENT_TYPE = 'image/jpeg'
 
 s3 = Aws::S3::Client.new(region: REGION_NAME, credentials: CREDENTIALS)
 
@@ -45,7 +50,7 @@ end
 
 # In case Cloudfront is used
 
-DISTRIBUTION_ID = 'my_distribution_id'.freeze # your id
+DISTRIBUTION_ID = 'my_distribution_id' # your id
 
 cloudfront = Aws::CloudFront::Client.new(
   region: REGION_NAME,
